@@ -1,0 +1,47 @@
+package testRunner;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class TestRun {
+	WebDriver driver=null;
+	
+	
+	@SuppressWarnings("deprecation")
+	public void test() {
+		System.getProperty("webDriver","C:\\Users\\DILIP SHINDE\\eclipse-workspace\\nopCommerce_Cucumber\\Drivers\\chromedriver.exe");
+		
+		WebDriver driver=new ChromeDriver();
+		 
+		driver.manage().window().maximize();
+		
+		driver.get("https://www.makemytrip.com/");
+		
+		driver.manage().timeouts().pageLoadTimeout(5,TimeUnit.SECONDS);
+		
+		String OptionToSelect="Benin city";
+		
+		driver.findElement(By.xpath("//span[normalize-space()='From']")).sendKeys("Ben");
+		
+		List<WebElement> optionList=(List<WebElement>) driver.findElement(By.xpath("//ul[@class='react-autosuggest__suggestions-list']"));
+		
+		for(WebElement ele:optionList) {
+			
+			String CurrentOption=ele.getText();
+			  
+			if(CurrentOption.contains(OptionToSelect));{
+				ele.click();
+			
+				break;
+				
+			}
+		}
+		
+		
+	}	
+}
