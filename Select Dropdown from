@@ -1,0 +1,54 @@
+package testRunner;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class TestRun {
+	WebDriver driver=null;
+	
+	
+	@SuppressWarnings("deprecation")
+	public void test() {
+		System.getProperty("webDriver","C:\\Users\\DILIP SHINDE\\eclipse-workspace\\nopCommerce_Cucumber\\Drivers\\chromedriver.exe");
+		
+		WebDriver driver=new ChromeDriver();
+		 
+		driver.manage().window().maximize();
+		
+		driver.get("https://trytestingthis.netlify.app/");
+		
+		driver.manage().timeouts().pageLoadTimeout(5,TimeUnit.SECONDS);
+		
+		WebElement dropdown = driver.findElement(By.id("option"));
+		
+		Select Selectoption= new Select(dropdown);
+		
+		Selectoption.deselectByIndex(1);
+		Selectoption.selectByValue("option 2");
+		Selectoption.selectByVisibleText("Option 3");
+		
+		//How to store drop down options
+		
+		//List<WebElement> alloptions= Selectoption.getOptions();
+		//OR
+		List<WebElement> alloptions=driver.findElements(By.id("Option"));
+				
+		for (WebElement option:alloptions) {
+			
+		          System.out.println(option.getText());
+			
+		          if(option.getText().equalsIgnoreCase("Option 2"))
+		          {
+		        	option.click();  
+		          }
+		}
+		
+		
+	}	
+}
